@@ -223,6 +223,7 @@ endif
 
 LIBRARIES += -lcufft
 
+SAMPLE_ENABLED := 1
 ifeq ($(SAMPLE_ENABLED),0)
 EXEC ?= @echo "[@]"
 endif

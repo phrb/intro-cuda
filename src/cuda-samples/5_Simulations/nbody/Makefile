@@ -223,6 +223,7 @@ endif
 
 ALL_CCFLAGS += -ftz=true
 
+SAMPLE_ENABLED := 1
 ifeq ($(SAMPLE_ENABLED),0)
 EXEC ?= @echo "[@]"
 endif
