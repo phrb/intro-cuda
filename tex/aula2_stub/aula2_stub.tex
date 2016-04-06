@@ -10,6 +10,8 @@
 \usepackage{url}
 \usepackage{relsize}
 \usepackage{courier}
+\usepackage{listings}
+\usepackage{wasysym}
 
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
@@ -34,7 +36,7 @@
     \begin{enumerate}
         \item Introdução
             \begin{itemize}
-                \item \emph{Template} para programas CUDA
+                \item Recapitulando: Um \emph{template} para programas CUDA
                 \item \emph{Profilers} e \emph{Debuggers}
             \end{itemize}
             \pause
@@ -69,15 +71,108 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{UM \textit{TEMPLATE} PARA CUDA C}
+    \begin{lstlisting}[basicstyle=\scriptsize, language=C]
+    // Código em src/cuda-samples/0_Simple/vectorAdd/vectorAdd.cu 
+    #include <cuda_runtime.h>
+    \end{lstlisting}
+    \pause
+    \begin{lstlisting}[basicstyle=\scriptsize, language=C]
+    float *h_A = (float *)malloc(size);
+    if (h_A == NULL) { ... };
+
+    err = cudaMalloc((void **)&d_A, size);
+    err = cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
+    if (err != cudaSuccess) { ... };
+    \end{lstlisting}
+    \pause
+    \begin{lstlisting}[basicstyle=\scriptsize, language=C]
+    int threadsPerBlock = 256;
+    int blocksPerGrid =(numElements + threadsPerBlock - 1) / threadsPerBlock;
+    \end{lstlisting}
+    \pause
+    \begin{lstlisting}[basicstyle=\scriptsize, language=C]
+    vectorAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, numElements);
+
+    err = cudaGetLastError()
+    err = cudaDeviceSynchronize()
+    if (err != cudaSuccess) { ... };
+    \end{lstlisting}
+    \pause
+    \begin{lstlisting}[basicstyle=\scriptsize, language=C]
+    err = cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
+    err = cudaFree(d_A);
+    if (err != cudaSuccess) { ... };
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}
+    \frametitle{UM \textit{TEMPLATE} PARA CUDA C}
+    Exemplos no repositório:
+    \small
+    \begin{itemize}
+        \item \texttt{src/cuda-samples/0\_Simple}
+        \item \texttt{src/cuda-samples/0\_Simple/vectorAdd/vectorAdd.cu}
+        \item \texttt{src/cuda-samples/0\_Simple/template\_runtime/template\_runtime.cu}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\textit{PROFILERS} E \textit{DEBUGGERS}}
+    \textit{Profilers}:
+    \begin{itemize}
+        \item Ferramentas para análise de código \alert{em tempo de execução}
+        \item A intenção é \alert{otimizar o código}
+    \end{itemize}
+    \pause
+    Como?
+    \begin{itemize}
+        \item Instrumentação do Código
+        \item Captura de eventos
+        \item Geração de dados
+    \end{itemize}
+    \pause
+    O quê?
+    \begin{itemize}
+        \item Consumo de memória
+        \item Frequência e duração de chamadas de função
+        \item Uso de instruções específicas
+        \pause
+        \item \alert{Bottlenecks}, ou \alert{Gargalos}, de desempenho
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{\textit{PROFILERS} E \textit{DEBUGGERS}}
+    \textit{Debuggers}:
+    \begin{itemize}
+        \item Ferramentas para análise de código \alert{em tempo de execução}
+        \item As intenções são \alert{consertar bugs} e realizar \alert{testes}
+    \end{itemize}
+    \pause
+    Como?
+    \begin{itemize}
+        \item Instrumentação do Código
+        \item Execução passo-a-passo
+        \item \alert{Breakpoints}
+    \end{itemize}
+    \pause
+    O quê?
+    \begin{itemize}
+        \item Acessos e vazamentos de memória
+        \pause
+        \item Pode ajudar com vários tipos de \alert{bugs} \smiley{}
+    \end{itemize}
+\end{frame}
+
 \begin{frame}
     \frametitle{RECURSOS}
-    
     Os próximos \emph{slides} foram adaptados do
     material disponível no \alert{GPU Teaching Kit}:
     \begin{itemize}
         \item \url{syllabus.gputeachingkit.com}
     \end{itemize}
-
 \end{frame}
 
 \plain{Obrigado!}
