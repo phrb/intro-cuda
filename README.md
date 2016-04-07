@@ -9,6 +9,7 @@ Contém:
 
 - Um *ipython notebook* com implementações da função de Mandelbrot em CUDA Python
 - Exemplos de código em CUDA C, fornecidos pela NVIDIA
+- Exemplos usando *nvprof* e *cuda-memcheck*
 
 ##### ./pdf
 
