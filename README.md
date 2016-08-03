@@ -17,4 +17,4 @@ Contém:
 
 - *Slides* usados nas apresentações
 
-Clique [aqui](https://github.com/phrb/intro-cuda-tex) para ir ao repositório com código fonte das apresentações.
+Clique [aqui](https://github.com/phrb/intro-cuda-tex) para ir ao repositório com o código fonte das apresentações.
