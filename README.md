@@ -1,7 +1,7 @@
-## Introdução à Programação para GPUs Usando CUDA
+## Introdução à Programação para GPUs com a Plataforma CUDA
 
-Este repositório contém os arquivos e recursos usados nas aulas
-sobre programação em CUDA para a disciplina de Programação Concorrente.
+Este repositório contém uma apresentação e recursos sobre programação com a
+Plataforma CUDA.
 
 ##### ./src
 
@@ -16,8 +16,3 @@ Contém:
 Contém:
 
 - *Slides* usados nas aulas
-- Material original do GPU Teaching Kit
-
-##### ./tex
-
-Contém código fonte para gerar os *pdf*s das aulas.
